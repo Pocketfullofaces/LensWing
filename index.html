@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LensWing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="logo.png" width="100"></div>
+        <h1>LensWing</h1>
+        <p>Upload or take a photo, and the ResNet18 model will guess its species (100 classes).</p>
+    </header>
+
+    <main>
+        <div id="status" class="status loading">Loading model…</div>
+
+        <section class="card">
+            <label id="dropzone" class="dropzone" for="file">
+                <img id="preview" hidden>
+                <div id="dz-text">
+                <span class="dz-icon">📷</span>
+                <strong>Upload or Drop the image here</strong>
+                <small>JPG / PNG / WEBP</small>
+                </div>
+            </label>
+            <input id="file" type="file" accept="image/*" hidden>
+            <input id="file-cam" type="file" accept="image/*" capture="environment" hidden>
+
+            <div id="camera" class="camera" hidden>
+                <video id="video" autoplay playsinline muted></video>
+                <div class="cam-actions">
+                <button id="cam-shot" class="btn">📸 Take Photo</button>
+                <button id="cam-switch" class="btn ghost">🔄 Switch</button>
+                <button id="cam-close" class="btn ghost">✕ Close</button>
+                </div>
+            </div>
+
+            <button id="cam-open" class="btn ghost">📷 Open Camera</button>
+            <button id="btn" class="btn" disabled>Classify</button>
+        </section>
+
+        <section id="result" class="card" hidden>
+            <div class="result-head">
+                <span id="badge" class="badge"></span>
+                <h2 id="species"></h2>
+                <p id="conf"></p>
+            </div>
+
+            <h3>Probability of Species</h3>
+            <div class="split">
+                <div id="bar-butterfly" class="split-part butterfly"></div>
+                <div id="bar-moth" class="split-part moth"></div>
+            </div>
+
+            <h3>5 Top Predictions</h3>
+            <ul id="top5" class="top5"></ul>
+        </section>
+
+        <section id="manual" class="card" hidden>
+            <p>Model cannot be loaded automatically (page opened via <code>file://</code>). Please select the <code>model.onnx</code> file manually:</p>
+            <input id="model-file" type="file" accept=".onnx">
+        </section>
+    </main>
+
+    <footer>Hartono Budi · Juan Wangsa H</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.3/dist/ort.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
